@@ -41,8 +41,8 @@
     width: 90px;
     justify-content: center;
     background-image: url("/images/prev-base.png");
-    background-position: 50% 0;
-    background-size: 100% 9px;
+    background-position: 50% 9px;
+    background-size: 72px 20px;
     background-repeat: no-repeat;
 }
 
