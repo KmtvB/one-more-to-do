@@ -1,0 +1,28 @@
+
+.line {
+    height: 100%;
+    display: flex;
+    border-bottom: 1px solid rgb(230, 235, 237);
+}
+
+.line .left-area {
+    flex: 0 0 44px;
+    height: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.line .left-area::after {
+    display: block; 
+    content: "";
+    height: 100%;
+    flex: 0 0 3px;
+    border-right: 1px solid rgb(242, 227, 223);
+    border-left: 1px solid rgb(242, 227, 223);
+}
+
+.line .right-area {
+    flex: 1 0 auto;
+}
+
+

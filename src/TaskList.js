@@ -10,7 +10,7 @@ export class TaskList extends Component {
                 <TickBox isClosed={elem.done} />
             );
             const rightArea = (
-                <span className>{elem.text}</span>
+                <span className="task-text">{elem.text}</span>
             );
 
             return (

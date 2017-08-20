@@ -45,11 +45,18 @@ export class ToDoList extends Component {
         }
     }
 
+    tickBoxHandler() {}
+    addButtonHandler() {}
+    deleteButtonHandler() {}
+    settingsButtonHandler() {}
+    prevHandler() {}
+    nextHandler() {}
+
     render() {
         const isPrev = false,
               isNext = true;
         const taskToShow = this.state.toDoTasks.slice(this.state.page*5, (this.state.page+1)*5);
-        const allTaskIsDone = this.props.toDoTasks.reduce((prev, curr) => prev && curr , true);
+        const allTaskIsDone = this.state.toDoTasks.reduce((prev, curr) => prev && curr.done , true);
         
         return (
             <div id="container">

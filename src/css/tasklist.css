@@ -1,0 +1,12 @@
+.list li  {
+    height: 30px;
+}
+
+.list .task-text {
+    padding: 0 10px 0 10px;
+    line-height: 30px;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: bold;
+}
+

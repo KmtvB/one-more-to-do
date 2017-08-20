@@ -1,0 +1,41 @@
+.header {
+    height: 40px;
+}
+
+.control-icon {
+    display: inline-block;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+}
+
+.add-icon {
+    background-image: url("/images/add.png");
+}
+
+.delete-icon {
+    background-image: url("/images/trash 2.png");
+}
+
+.control-panel {
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+
+.control-panel > div {
+    flex: 0 0 15px;
+}
+
+.control-panel > div:last-child {
+    flex: 1 0 auto;
+    float: right;
+}
+
+.settings-icon {
+    background-position-x: 100%;
+    background-image: url("/images/cog.png");
+}

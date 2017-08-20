@@ -1,0 +1,73 @@
+
+.footer {
+    height: 45px;
+    border-bottom: none;
+}
+
+.footer .left-area > div {
+    width: 100%;
+}
+
+.nav-panel {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-button-next, .nav-button-prev {
+    font-size: 10px;
+    font-weight: bold;
+    color: rgb(103, 111, 127);
+    display: flex;
+    height: 80%;
+    align-items: center;   
+}
+
+.nav-button-next {
+    width: 70px;
+    justify-content: center;
+    background-image: url("/images/next-base.png");
+    background-position: 50% 9px;
+    background-size: 55px 20px;
+    background-repeat: no-repeat;
+}
+
+.nav-button-next > span {
+    margin-right: 5px;
+}
+
+.nav-button-prev {
+    width: 90px;
+    justify-content: center;
+    background-image: url("/images/prev-base.png");
+    background-position: 50% 0;
+    background-size: 100% 9px;
+    background-repeat: no-repeat;
+}
+
+.nav-button-prev > span {
+    margin-left: 5px;
+}
+
+.nav-button-inactive {
+    background-image: none;
+    color: rgb(215, 216, 218);
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+.nav-icon {
+    width: 11px;
+    height: 11px;
+    background-repeat: no-repeat;  
+    background-position: 50% 50%;
+    background-size: 11px 11px;
+}
+
+.next-icon {
+    background-image: url("/images/next-icon.png");
+}
+
+.prev-icon {
+    background-image: url("/images/prev-icon.png");
+}

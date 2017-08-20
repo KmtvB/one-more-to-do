@@ -12,10 +12,10 @@ export class Header extends Component {
             />
         );
         const rightArea = (
-            <div class="control-panel">
-                <div class="control-icon add-icon"></div>
-                <div class="control-icon delete-icon"></div>
-                <div class="control-icon settings-icon"></div>
+            <div className="control-panel">
+                <div className="control-icon add-icon"></div>
+                <div className="control-icon delete-icon"></div>
+                <div className="control-icon settings-icon"></div>
             </div>
         );
         return (
