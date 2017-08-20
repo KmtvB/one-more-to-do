@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
 import Header from './Header';
 import TaskList from './TaskList';
 import FooterNavBar from './FooterNavBar';
+import './css/todolist.css';
 
 
 export class ToDoList extends Component {
@@ -52,7 +52,7 @@ export class ToDoList extends Component {
         const allTaskIsDone = this.props.toDoTasks.reduce((prev, curr) => prev && curr , true);
         
         return (
-            <div>
+            <div id="container">
                 <Header 
                     tickBoxAllTask={allTaskIsDone}
                     tickBoxHandler={this.tickBoxHandler}

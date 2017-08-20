@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './css/line.css';
 
 
 export class Line extends Component {

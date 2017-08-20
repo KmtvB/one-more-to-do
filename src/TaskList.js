@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Line from './Line.js';
 import TickBox from './TickBox';
+import './css/tasklist.css';
 
 export class TaskList extends Component {
     render() {

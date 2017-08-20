@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Line from './Line';
+import './css/footer.css'
 
 export class FooterNavBar extends Component {
     render() {

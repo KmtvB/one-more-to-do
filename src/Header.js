@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tickbox from './TickBox';
 import Line from './Line';
+import './css/header.css'
 
 export class Header extends Component {
     render() {
