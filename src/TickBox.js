@@ -6,7 +6,7 @@ export class TickBox extends Component {
         return (
             <div 
                 className={"tick-box " + (this.props.isClosed ? 'done' : 'open')}
-                onClick={this.props.handler}
+                onClick={this.props.tickBoxOnClick}
             ></div>
         );
     }

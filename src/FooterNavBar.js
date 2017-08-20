@@ -7,11 +7,11 @@ export class FooterNavBar extends Component {
         const leftArea = (<div></div>);
         const rightArea = (
             <div className="nav-panel">
-                <div className="nav-button-prev nav-button-inactive">
+                <div onClick={this.props.prevOnClick} className={"nav-button-prev " + (this.props.isPrevActive ? '' : 'nav-button-inactive') }> 
                     <div className="nav-icon prev-icon"></div>
                     <span>Previous</span>
                 </div>
-                <div className="nav-button-next">
+                <div onClick={this.props.nextOnClick} className={"nav-button-next " + (this.props.isNextActive ? '' : 'nav-button-inactive')}>
                     <span>Next</span>
                     <div className="nav-icon next-icon"></div>
                 </div>

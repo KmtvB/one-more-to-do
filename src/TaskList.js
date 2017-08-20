@@ -7,7 +7,10 @@ export class TaskList extends Component {
     render() {
         const list = this.props.tasks.map(elem => {
             const leftArea = (
-                <TickBox isClosed={elem.done} />
+                <TickBox 
+                    isClosed={elem.done} 
+                    tickBoxOnClick={() => this.props.tickBoxOnClick(elem.id)}
+                />
             );
             const rightArea = (
                 <span className="task-text">{elem.text}</span>

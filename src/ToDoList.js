@@ -10,10 +10,11 @@ export class ToDoList extends Component {
         super(props);
         this.state = {
             page: 0,
+            titles: ['first', 'second'],
             toDoTasks: [
-                {
+                [{
                     id: 1451,
-                    text: 'Play soccer with friends', 
+                    text: 'Play soccer with friends',
                     done: false,
                 },
                 {
@@ -35,45 +36,80 @@ export class ToDoList extends Component {
                     id: 557,
                     text: 'Post a new shot to Dribbble',
                     done: false,
-                },
-                {
+                }],
+                [{
                     id: 16789,
                     text: 'publish on github',
                     done: false,
-                }
+                }]
             ]
         }
     }
 
-    tickBoxHandler() {}
-    addButtonHandler() {}
-    deleteButtonHandler() {}
-    settingsButtonHandler() {}
-    prevHandler() {}
-    nextHandler() {}
+    tickBoxHandler = (id) => {
+        let tasks = this.state.toDoTasks;
+        const page = this.state.page; //current page
+        for (let i = 0; i < tasks[page].length; i++) {
+            if (tasks[page][i].id === id)
+                tasks[page][i].done = !tasks[page][i].done;
+        }
+        this.setState({
+            toDoTasks: tasks
+        });
+    }
+    tickBoxAllHandler = () => {
+        let tasks = this.state.toDoTasks;
+        const page = this.state.page; //current page
+        const allTaskIsDone = tasks[page].reduce((prev, curr) => prev && curr.done, true);
+        //if all task is done, then we need tick them as undone, so we use inverted allTaskIsDone
+        tasks[page] = tasks[page].map(elem => Object.assign(elem, { done: !allTaskIsDone })) 
+        this.setState({
+            toDoTasks: tasks  
+        });
+    }
+    addButtonHandler = () => {
+
+     }
+    deleteButtonHandler() { }
+    settingsButtonHandler() { }
+    prevHandler = () => {
+        let newPage = this.state.page;
+        if (newPage !== 0)
+            newPage--;
+        this.setState({ page: newPage });
+    }
+    nextHandler = () => {
+        console.log('123');
+        let newPage = this.state.page;
+        if (newPage !== this.state.toDoTasks.length)
+            newPage++;
+        this.setState({ page: newPage });
+    }
 
     render() {
-        const isPrev = false,
-              isNext = true;
-        const taskToShow = this.state.toDoTasks.slice(this.state.page*5, (this.state.page+1)*5);
-        const allTaskIsDone = this.state.toDoTasks.reduce((prev, curr) => prev && curr.done , true);
-        
+        const maxPage = this.state.toDoTasks.length,
+            isPrev = this.state.page > 0,
+            isNext = this.state.page < maxPage,
+            taskOnPage = this.state.toDoTasks[this.state.page];
+        const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && curr.done, true);
+
         return (
             <div id="container">
-                <Header 
+                <Header
+                    pageTitle={this.state.titles[this.state.page]}
                     tickBoxAllTask={allTaskIsDone}
-                    tickBoxHandler={this.tickBoxHandler}
+                    tickBoxOnClick={this.tickBoxAllHandler}
                     addOnClick={this.addButtonHandler}
                     delOnClick={this.deleteButtonHandler}
                     setOnClick={this.settingsButtonHandler}
                 />
                 <TaskList
-                    tickBoxHandler={this.tickBoxHandler}
-                    tasks={taskToShow}
+                    tickBoxOnClick={this.tickBoxHandler}
+                    tasks={taskOnPage}
                 />
-                <FooterNavBar 
-                    isPrev={isPrev} prevOnClick={this.prevHandler}
-                    isNext={isNext} nextOnClick={this.nextHandler}
+                <FooterNavBar
+                    isPrevActive={isPrev} prevOnClick={this.prevHandler}
+                    isNextActive={isNext} nextOnClick={this.nextHandler}
                 />
             </div>
         );

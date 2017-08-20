@@ -8,13 +8,14 @@ export class Header extends Component {
         const leftArea = (
             <Tickbox 
                 isClosed={this.props.tickBoxAllTask}
-                handler={this.props.tickBoxHandler}
+                tickBoxOnClick={this.props.tickBoxOnClick}
             />
         );
         const rightArea = (
             <div className="control-panel">
                 <div className="control-icon add-icon"></div>
                 <div className="control-icon delete-icon"></div>
+                <span className="page-title">{this.props.pageTitle}</span>
                 <div className="control-icon settings-icon"></div>
             </div>
         );

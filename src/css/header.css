@@ -30,9 +30,13 @@
     flex: 0 0 15px;
 }
 
-.control-panel > div:last-child {
+span.page-title, input {
+    font-weight: bold;
+    font-size: small;
+    margin-left: 33px;
     flex: 1 0 auto;
-    float: right;
+    border: none;
+    width: 1px;
 }
 
 .settings-icon {
