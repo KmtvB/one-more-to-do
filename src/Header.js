@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Tickbox from './TickBox';
 import Line from './Line';
-import './css/header.css'
+import './css/header.css';
 
 export class Header extends Component {
     render() {
@@ -13,10 +13,10 @@ export class Header extends Component {
         );
         const rightArea = (
             <div className="control-panel">
-                <div className="control-icon add-icon"></div>
-                <div className="control-icon delete-icon"></div>
-                <span className="page-title">{this.props.pageTitle}</span>
-                <div className="control-icon settings-icon"></div>
+                <div className="control-icon add-icon" onClick={this.props.addOnClick}></div>
+                <div className="control-icon delete-icon" onClick={this.props.delOnClick}></div>
+                <input className="page-title" value={this.props.pageTitle} onChange={this.props.titleOnChange}/>
+                <div className="control-icon settings-icon" onClick={this.props.setOnClick}></div>
             </div>
         );
         return (

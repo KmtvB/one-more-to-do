@@ -3,9 +3,33 @@
     height: 45px;
     border-bottom: none;
 }
-
-.footer .left-area > div {
+.left-empty {
     width: 100%;
+}
+
+.dialog-panel {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dialog-button {
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    background-color: rgb(241, 240, 240);
+}
+
+.dialog-button.button-yes {
+    width: 3em;
+}
+
+.dialog-button.button-no {
+    width: 2.6em;
 }
 
 .nav-panel {
@@ -15,13 +39,16 @@
     align-items: center;
 }
 
-.nav-button-next, .nav-button-prev {
+.nav-button {
     font-size: 10px;
     font-weight: bold;
     color: rgb(103, 111, 127);
     display: flex;
     height: 80%;
-    align-items: center;   
+    align-items: center; 
+}
+
+.nav-button-new {
 }
 
 .nav-button-next {

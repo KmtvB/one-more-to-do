@@ -2,11 +2,23 @@
     height: 30px;
 }
 
-.list .task-text {
+.list .task-text, .list input {
     padding: 0 10px 0 10px;
     line-height: 30px;
     vertical-align: middle;
     font-size: 13px;
     font-weight: bold;
 }
+
+.list input, .list input:focus {
+    width: auto;
+    border: none;
+    outline: rgb(108, 106, 106);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.list .task-text.to-delete {
+    background-color: rgba(255, 93, 93, 0.62);
+}
+
 
