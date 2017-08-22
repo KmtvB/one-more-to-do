@@ -2,6 +2,13 @@
     height: 40px;
 }
 
+.header-title {
+    line-height: 40px;
+    text-align: center;
+    vertical-align: center;
+    color: rgb(139, 143, 151);
+}
+
 .control-icon {
     display: inline-block;
     background-position: 50% 50%;

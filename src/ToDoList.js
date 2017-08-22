@@ -1,321 +1,198 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import TaskList, { includes } from './TaskList';
-import { FooterNavBar, Footer, FooterDialog } from './FooterNavBar';
-import './css/todolist.css';
+import { Header, HeaderTaskList, HeaderTitle } from './Headers';
+import { TaskList } from './TaskList';
+import DeleteTasks  from './DeleteTasks';
+import { FooterNavBar, Footer, FooterDialog } from './Footers';
+import { InterfaceStateEnum } from './App';
 
-const interfaceStateEnum = {
-    base: '0', //base interface, nav-bar, clicking on tasks set 'editing' state and allow to change text of selected task
-    deleting: '1', //deleting mode, dialog-bar, clicking on tasks set 'pick' them in red color, list of picked, also, 
-    editing: '3', //editing mode, dialog-bar, everything else is not function
-}
 
-//get task by id
-function getLineNumberById(tasksList, id) {
-    let lineNumber = null;
-    for (let i = 0; i < tasksList.length; i++) {
-        if (tasksList[i].id === id)
-            lineNumber = i;
-    }
-    if (lineNumber === null)
-        throw Error('lineNumber is null');
-    return lineNumber;
-}
-
-export class ToDoList extends Component {
+class ToDoList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             page: 0,
-            interfaceState: {
-                state: interfaceStateEnum.base,
-                lineNumbers: null,
-                additionalInfo: null,
-            },
             titles: ['first', 'second'],
-            toDoTasks: [
-                [{
-                    id: 1451,
-                    text: 'Play soccer with friends',
-                    done: false,
-                },
-                {
-                    id: 2562,
-                    text: 'Open Photoshop',
-                    done: true,
-                },
-                {
-                    id: 3645,
-                    text: 'Finish client word',
-                    done: false,
-                },
-                {
-                    id: 479,
-                    text: 'Give away some PSD',
-                    done: true,
-                },
-                {
-                    id: 557,
-                    text: 'Post a new shot to Dribbble',
-                    done: false,
-                },
-                {
-                    id: 154565,
-                    text: 'Место для вашей рекламы',
-                    done: false,
-                }],
-                [{
-                    id: 16789,
-                    text: 'publish on github',
-                    done: false,
-                }]
-            ]
+            tasksPages: [
+                [
+                    {
+                        id: 1451,
+                        text: 'Play soccer with friends',
+                        done: false,
+                    },
+                    {
+                        id: 2562,
+                        text: 'Open Photoshop',
+                        done: true,
+                    },
+                    {
+                        id: 3645,
+                        text: 'Finish client word',
+                        done: false,
+                    },
+                    {
+                        id: 479,
+                        text: 'Give away some PSD',
+                        done: true,
+                    },
+                    {
+                        id: 557,
+                        text: 'Post a new shot to Dribbble',
+                        done: false,
+                    },
+                    {
+                        id: 154565,
+                        text: 'Место для вашей рекламы',
+                        done: false,
+                    }
+                ],
+                [
+                    {
+                        id: 16789,
+                        text: 'publish on github',
+                        done: false,
+                    }
+                ]],
         }
     }
 
-    tickBoxHandler = (id) => {
-        let tasks = this.state.toDoTasks;
-        const page = this.state.page; //current page
-        for (let i = 0; i < tasks[page].length; i++) {
-            if (tasks[page][i].id === id)
-                tasks[page][i].done = !tasks[page][i].done;
-        }
+    toggleBoxHandler = (lineNumber, currentStatus) => {
+        let tasksPages = this.state.tasksPages;
+        tasksPages[this.state.page][lineNumber].done = !currentStatus;
         this.setState({
-            toDoTasks: tasks
+            tasksPages: tasksPages,
         });
     }
-    tickBoxAllHandler = () => {
-        let tasks = this.state.toDoTasks;
-        const page = this.state.page; //current page
-        const allTaskIsDone = tasks[page].reduce((prev, curr) => prev && curr.done, true);
+    toggleBoxAllHandler = () => {
+        let tasksPages = this.state.tasksPages;
+        const allTaskIsDone = this.state.tasksPages[this.state.page].reduce((prev, curr) => prev && curr.done, true); //on current page
         //if all task is done, then we need tick them as undone, so we use inverted allTaskIsDone
-        tasks[page] = tasks[page].map(elem => Object.assign(elem, { done: !allTaskIsDone }))
+        for (let i = 0; i < tasksPages[this.state.page].length; i++)
+            tasksPages[this.state.page][i].done = !allTaskIsDone;
         this.setState({
-            toDoTasks: tasks
+            tasksPages: tasksPages,
         });
     }
-    textInputOnChange = (event) => {
-        const newText = event.target.value,
-            page = this.state.page,
-            editingText = this.state.interfaceState.lineNumbers;
-        let tasks = this.state.toDoTasks;
-        tasks[page][editingText].text = newText;
+    textInputOnChange = (event, lineNumber) => {
+        let tasksPages = this.state.tasksPages;
+        tasksPages[this.state.page][lineNumber].text = event.target.value;
         this.setState({
-            toDoTasks: tasks
+            tasksPages: tasksPages,
         });
     }
     titleOnChange = (event) => {
-        const newTitle = event.target.value,
-            page = this.state.page;
-        let titles = this.state.titles;
-        titles[page] = newTitle;
         this.setState({
-            titles: titles,
+            titles: this.state.titles.map((title, index) => index === this.state.page ? event.target.value : title),
         });
     }
-    startEditingState(lineNumber) {
-        if (this.state.interfaceState.state != interfaceStateEnum.base)
-            return;
-        const page = this.state.page;
-        const tasksOnPage = this.state.toDoTasks[page];
-        const newInterfaceState = interfaceStateEnum.editing;
-        const previousText = tasksOnPage[lineNumber].text;
-        this.setState({
-            interfaceState: {
-                state: newInterfaceState,
-                lineNumbers: lineNumber,
-                additionalInfo: previousText,
-            }
-        });
-    }
-    
-    taskTextClickHandler = (id) => {
-        const page = this.state.page;
-        const tasksOnPage = this.state.toDoTasks[page];
-        this.startEditingState(getLineNumberById(tasksOnPage, id));
-    }
+
     //
     addButtonHandler = () => {
-        if (this.state.interfaceState.state !== interfaceStateEnum.base)
-            return;
-        const page = this.state.page;
-        let tasks = this.state.toDoTasks;
-        tasks[page].push({
-            id: Math.floor(Math.random() * (1000 - 1)) + 1,
-            text: '',
-            done: false,
-        });
-        this.setState({toDoTasks: tasks});
-        this.startEditingState(tasks[page].length-1);
-    }
-    deleteButtonHandler = () => { 
-        if (this.state.interfaceState.state !== interfaceStateEnum.base)
-            return;
+        let tasksPages = this.state.tasksPages;
+        tasksPages[this.state.page].push({ id: Math.floor(Math.random() * (1000 - 1)) + 1, text: '', done: false });
         this.setState({
-            interfaceState: {
-                state: interfaceStateEnum.deleting,
-                lineNumbers: [],
-                additionalInfo: null,
-            }
+            tasksPages: tasksPages,
         });
     }
-    tasksDeleteClickHandler = (id) => { 
-        const page = this.state.page;
-        const tasksOnPage = this.state.toDoTasks[page];
-        const lineNumber = getLineNumberById(tasksOnPage, id);
-        let selectedLines = this.state.interfaceState.lineNumbers;
-        const index = selectedLines.indexOf(lineNumber);
-        if (index === -1) {
-            selectedLines.push(lineNumber);
-        } else {
-            selectedLines.splice(index, 1);
+    deleteButtonHandler = () => {
+        this.props.setInterfaceState(InterfaceStateEnum.taskList.delete);
+    }
+    deleteTasks = (linesNumber) => {
+        let tasksPages = this.state.tasksPages;
+        let restLines = [];
+        for (let i = 0; i < tasksPages[this.state.page].length; i++)
+            if (linesNumber.indexOf(i) === -1)
+                restLines.push(tasksPages[this.state.page][i]);
+        if (restLines.length === 0)
+            this.deletePage(this.state.page);
+        else {
+            tasksPages[this.state.page] = restLines;
+            this.setState({
+                tasksPages: tasksPages,
+            });
         }
-        this.setState({
-            interfaceState: {
-                state: interfaceStateEnum.deleting,
-                lineNumbers: selectedLines,
-                additionalInfo: null,
-            }
-        });
+    }
+    deletePage = () => {
+        let tasksPages = this.state.tasksPages,
+            titles = this.state.titles,
+            page = this.state.page;
+        titles.splice(page, 1);
+        tasksPages.splice(page, 1);
+        if (tasksPages.length !== 0) {
+            this.setState({
+                titles: titles,
+                tasksPages: tasksPages,
+                page: page > 0 ? --page : 0,
+            });
+        } else {
+            this.setState({
+                titles: ['your first page'],
+                tasksPages: [[]],
+                page: 0
+            });
+        }
     }
     settingsButtonHandler() { }
-    yesHandler = () => {
-        const appState = this.state.interfaceState.state;
-        let page = this.state.page; //current page
-        let tasks = this.state.toDoTasks;
-
-        if (appState === interfaceStateEnum.editing) {
-
-        } else if (appState === interfaceStateEnum.deleting) {
-            const linesToDelete = this.state.interfaceState.lineNumbers;
-            let restLines = [];
-            for (let i = 0; i < tasks[page].length; i++) 
-                if (linesToDelete.indexOf(i) === -1)
-                    restLines.push(tasks[page][i]);
-
-            tasks[page] = restLines;
-            if (restLines.length === 0 && tasks.length > 1) { //no more task and there is also page. delete this page
-                tasks.splice(page, 1);
-                this.state.titles.splice(page, 1);
-                page = page > 0 ? page-1 : 0; 
-            }
-            
-        }
-        this.setState({
-            toDoTasks: tasks,
-            page: page,
-            interfaceState: {
-                state: interfaceStateEnum.base,
-                lineNumbers: null,
-                additionalInfo: null,
-            }
-        });
+    prevPage = () => {
+        this.setState({ page: --this.state.page });
     }
-    noHandler = () => {
-        const page = this.state.page;
-        let tasks = this.state.toDoTasks;
-
-        const appState = this.state.interfaceState.state;
-        if (appState === interfaceStateEnum.editing) {
-            const lineNumber = this.state.interfaceState.lineNumbers;
-            const previousText = this.state.interfaceState.additionalInfo;
-            if (previousText === '' && lineNumber === tasks[page].length-1) { //means it's new task, so delete
-                tasks[page].pop();
-            } else {
-                tasks[page][lineNumber].text = previousText;
-            }
-        } else if (appState === interfaceStateEnum.deleting) {
-
-        }
-        this.setState({
-            toDoTasks: tasks,
-            interfaceState: {
-                state: interfaceStateEnum.base,
-                lineNumbers: null,
-                additionalInfo: null,
-            }
-        });
-    }
-    prevNavHandler = () => {
-        let newPage = this.state.page;
-        if (newPage !== 0)
-            newPage--;
-        this.setState({ page: newPage });
-    }
-    nextNavHandler = () => {
-        let newPage = this.state.page;
-        if (newPage !== this.state.toDoTasks.length-1)
-            newPage++;
-        this.setState({ page: newPage });
+    nextPage = () => {
+        this.setState({ page: ++this.state.page });
     }
     newPageHandler = () => {
+        const newTitle = 'new page';
+        const newTasks = [];
         this.setState({
-            titles: this.state.titles.concat(['new page']),
-            toDoTasks: this.state.toDoTasks.concat([[
-                {
-                    id: Math.floor(Math.random() * (1000 - 1)) + 1,
-                    text: 'new task',
-                    done: false,
-                }
-            ]]),
+            titles: this.state.titles.concat([newTitle]),
+            tasksPages: this.state.tasksPages.concat([newTasks]),
             page: ++this.state.page,
         });
     }
 
     render() {
-        const maxPage = this.state.toDoTasks.length,
-            isPrev = this.state.page > 0,
-            isNextAsNewPage = this.state.page == (maxPage - 1),
-            taskOnPage = this.state.toDoTasks[this.state.page];
-        const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && (curr ? curr.done : false), true);
+        if (this.props.interfaceState === InterfaceStateEnum.taskList.base) {
+            const isPrev = this.state.page > 0,
+                isNextAsNewPage = this.state.page === this.state.tasksPages.length - 1,
+                taskOnPage = this.state.tasksPages[this.state.page];
+            const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && (curr ? curr.done : false), true);
+            //if some input in focus...
 
-
-        let numTaskToEdit = null,
-            numsTaskToPickAsDeleting = null,
-            tasksOnClick = this.taskTextClickHandler; //default value, change only on deleting
-
-        let footer = <FooterDialog //placed here because it should be changed only on base state
-            yesOnClick={this.yesHandler}
-            noOnClick={this.noHandler}
-        />
-
-        const appState = this.state.interfaceState.state;
-        if (appState === interfaceStateEnum.base) {
-            footer = <FooterNavBar
-                isPrevActive={isPrev} prevOnClick={this.prevNavHandler}
-                isNextAsNewPage={isNextAsNewPage} nextOnClick={isNextAsNewPage ? this.newPageHandler : this.nextNavHandler}
-            />
-        } else if (appState === interfaceStateEnum.editing) {
-            numTaskToEdit = this.state.interfaceState.lineNumbers;
-        } else if (appState === interfaceStateEnum.deleting) {
-            numsTaskToPickAsDeleting = this.state.interfaceState.lineNumbers;
-            tasksOnClick = this.tasksDeleteClickHandler;
+            return (
+                <div id="container">
+                    <Header>
+                        <HeaderTaskList
+                            pageTitle={this.state.titles[this.state.page]} titleOnChange={this.titleOnChange}
+                            toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}
+                            addOnClick={this.addButtonHandler}
+                            delOnClick={this.deleteButtonHandler}
+                            setOnClick={this.settingsButtonHandler}
+                        />
+                    </Header>
+                    <TaskList
+                        toggleBoxOnClick={this.toggleBoxHandler}
+                        taskOnPage={taskOnPage}
+                        inputOnChange={this.textInputOnChange}
+                    />
+                    <Footer>
+                        <FooterNavBar
+                            isPrevActive={isPrev} prevOnClick={this.prevPage}
+                            isNextAsNewPage={isNextAsNewPage} nextOnClick={isNextAsNewPage ? this.newPageHandler : this.nextPage}
+                        />
+                    </Footer>
+                </div>
+            );
+        } else if (this.props.interfaceState === InterfaceStateEnum.taskList.delete) {
+            const taskOnPage = this.state.tasksPages[this.state.page];
+            return (
+                <DeleteTasks
+                    taskOnPage={taskOnPage}
+                    deleteTasks={this.deleteTasks}
+                    setInterfaceState={this.props.setInterfaceState}
+                />
+            );
         }
-
-        return (
-            <div id="container">
-                <Header
-                    pageTitle={this.state.titles[this.state.page]} titleOnChange={this.titleOnChange}
-                    tickBoxAllTask={allTaskIsDone}
-                    tickBoxOnClick={this.tickBoxAllHandler}
-                    addOnClick={this.addButtonHandler}
-                    delOnClick={this.deleteButtonHandler}
-                    setOnClick={this.settingsButtonHandler}
-                />
-                <TaskList
-                    tickBoxOnClick={this.tickBoxHandler}
-                    tasks={taskOnPage}
-                    tasksOnClick={tasksOnClick}
-
-                    numTaskToEdit={numTaskToEdit} inputOnChange={this.textInputOnChange} onInputEndEvent={this.yesHandler}
-                    numsTaskToPickAsDeleting={numsTaskToPickAsDeleting}
-                />
-                <Footer>
-                    {footer}
-                </Footer>
-            </div>
-        );
+        return null;
     }
 }
+
 
 export default ToDoList;
