@@ -18,8 +18,8 @@ class TaskList extends Component {
     }
 
     componentDidMount() {
-        this.textAreaList.map(TaskList.adjustTextAreaHeight);
-    }
+        [...this.textAreaList].map(TaskList.adjustTextAreaHeight);
+    }  
     render() {
         this.textAreaList = [];
         const list = this.props.taskOnPage.map((elem, lineNumber) => {
@@ -38,7 +38,7 @@ class TaskList extends Component {
                     value={elem.text}/>
             );
             return (
-                <li key={Math.floor(Math.random()*10000)}>
+                <li key={lineNumber.toString()}>
                     <Line
                         left={leftArea}
                         right={rightArea}

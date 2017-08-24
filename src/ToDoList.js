@@ -57,7 +57,7 @@ class ToDoList extends Component {
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        localStorage.setItem('tasksPages', JSON.stringify(prevState.tasksPages));
+        localStorage.setItem('tasksPages', JSON.stringify(this.state.tasksPages));
     }
 
     toggleBoxHandler = (lineNumber, currentStatus) => {
@@ -173,7 +173,7 @@ class ToDoList extends Component {
                             setOnClick={this.settingsButtonHandler}
                         />
                     </Header>
-                    <TaskList
+                    <TaskList 
                         toggleBoxOnClick={this.toggleBoxHandler}
                         taskOnPage={taskOnPage}
                         inputOnChange={this.textInputOnChange}
