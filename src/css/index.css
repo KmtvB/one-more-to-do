@@ -30,7 +30,7 @@ ul {
   width: 100%;
 }
 
-body input {
+body input, body textarea {
   color: rgb(139, 143, 151);
   width: auto;
   border: none;

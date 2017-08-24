@@ -4,10 +4,12 @@ import './css/tickbox.css'
 export class TickBox extends Component {
     render() {
         return (
-            <div 
-                className={"tick-box " + (this.props.isClosed ? 'done' : 'open')}
-                onClick={this.props.toggleBoxOnClick}
-            ></div>
+            <div className="tickbox-container">
+                <div
+                    className={"tick-box " + (this.props.isClosed ? 'done' : 'open')}
+                    onClick={this.props.toggleBoxOnClick}
+                ></div>
+            </div>
         );
     }
 }

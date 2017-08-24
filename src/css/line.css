@@ -7,7 +7,6 @@
 
 .line .left-area {
     flex: 0 0 44px;
-    height: inherit;
     display: flex;
     align-items: center;
 }

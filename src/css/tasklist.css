@@ -1,8 +1,8 @@
 .list li  {
-    height: 30px;
+    height: auto;
 }
 
-.list .task-text, .list input {
+.list .task-text, .list textarea {
     padding: 0 10px 0 10px;
     line-height: 30px;
     vertical-align: middle;
@@ -10,8 +10,12 @@
     font-weight: bold;
 }
 
-.list input, .list input:focus {
-    width: auto;
+.list textarea, .list textarea:focus {
+    word-wrap: break-word;
+    overflow: hidden;
+    height: 30px;
+    resize: none;
+    width: 100%;
     border: none;
     outline: rgb(108, 106, 106);
     background-color: rgba(0, 0, 0, 0);

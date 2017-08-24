@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header, HeaderTaskList, HeaderTitle } from './Headers';
 import { TaskList } from './TaskList';
-import DeleteTasks  from './DeleteTasks';
+import DeleteTasks from './DeleteTasks';
 import { FooterNavBar, Footer, FooterDialog } from './Footers';
 import { InterfaceStateEnum } from './App';
 
@@ -73,11 +73,16 @@ class ToDoList extends Component {
         });
     }
     textInputOnChange = (event, lineNumber) => {
-        let tasksPages = this.state.tasksPages;
-        tasksPages[this.state.page][lineNumber].text = event.target.value;
-        this.setState({
-            tasksPages: tasksPages,
-        });
+        const newText = event.target.value;
+        if (newText === '') {
+            this.deleteTasks([lineNumber]);
+        } else {
+            let tasksPages = this.state.tasksPages;
+            tasksPages[this.state.page][lineNumber].text = newText;
+            this.setState({
+                tasksPages: tasksPages,
+            });
+        }
     }
     titleOnChange = (event) => {
         this.setState({
@@ -154,7 +159,6 @@ class ToDoList extends Component {
                 isNextAsNewPage = this.state.page === this.state.tasksPages.length - 1,
                 taskOnPage = this.state.tasksPages[this.state.page];
             const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && (curr ? curr.done : false), true);
-            //if some input in focus...
 
             return (
                 <div id="container">

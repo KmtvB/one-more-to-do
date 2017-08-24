@@ -4,23 +4,39 @@ import TickBox from './TickBox';
 import './css/tasklist.css';
 
 class TaskList extends Component {
-    keyPressHandler = (event) => {
+    adjustTextAreaHeight(elem) {
+        elem.style.height = '1px';
+        elem.style.height = elem.scrollHeight + 'px';
+    }
+    keyPressHandler(event){
         if (event.key === 'Enter')
             event.target.blur();
     }
+    keyUpHandler = (event) => {
+        this.adjustTextAreaHeight(event.target);
+    }
+    componentDidMount() {
+        for (let i = 0; i < this.textAreaList.length; i++) {
+            this.adjustTextAreaHeight(this.textAreaList[i]);
+        }
+        
+    }
     render() {
+        this.textAreaList = [];
         const list = this.props.taskOnPage.map((elem, lineNumber) => {
             const leftArea = (
-                <TickBox
-                    isClosed={elem.done}
-                    toggleBoxOnClick={() => this.props.toggleBoxOnClick(lineNumber, elem.done)}
-                />
+                    <TickBox
+                        isClosed={elem.done}
+                        toggleBoxOnClick={() => this.props.toggleBoxOnClick(lineNumber, elem.done)}
+                    />
             );
             const rightArea = (
-                <input type="text"
-                    value={elem.text}
+                <textarea type="text"
                     onChange={(e) => this.props.inputOnChange(e, lineNumber)}
-                    onKeyPress={this.keyPressHandler} />
+                    ref={(elem) => {this.textAreaList.push(elem);}}
+                    onKeyPress={this.keyPressHandler}
+                    onKeyUp={this.keyUpHandler}
+                    value={elem.text}/>
             );
             return (
                 <li key={elem.id}>
