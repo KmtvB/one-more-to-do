@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "immutability-helper": "git+https://github.com/kolodny/immutability-helper.git",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },

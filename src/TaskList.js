@@ -4,30 +4,29 @@ import TickBox from './TickBox';
 import './css/tasklist.css';
 
 class TaskList extends Component {
-    adjustTextAreaHeight(elem) {
+    static adjustTextAreaHeight(elem) {
         elem.style.height = '1px';
         elem.style.height = elem.scrollHeight + 'px';
     }
     keyPressHandler(event){
         if (event.key === 'Enter')
             event.target.blur();
+        TaskList.adjustTextAreaHeight(event.target);
     }
-    keyUpHandler = (event) => {
-        this.adjustTextAreaHeight(event.target);
+    keyUpHandler(event) {
+        TaskList.adjustTextAreaHeight(event.target);
     }
+
     componentDidMount() {
-        for (let i = 0; i < this.textAreaList.length; i++) {
-            this.adjustTextAreaHeight(this.textAreaList[i]);
-        }
-        
+        this.textAreaList.map(TaskList.adjustTextAreaHeight);
     }
     render() {
         this.textAreaList = [];
         const list = this.props.taskOnPage.map((elem, lineNumber) => {
             const leftArea = (
                     <TickBox
-                        isClosed={elem.done}
-                        toggleBoxOnClick={() => this.props.toggleBoxOnClick(lineNumber, elem.done)}
+                        isClosed={elem.status}
+                        toggleBoxOnClick={() => this.props.toggleBoxOnClick(lineNumber, elem.status)}
                     />
             );
             const rightArea = (
@@ -39,7 +38,7 @@ class TaskList extends Component {
                     value={elem.text}/>
             );
             return (
-                <li key={elem.id}>
+                <li key={Math.floor(Math.random()*10000)}>
                     <Line
                         left={leftArea}
                         right={rightArea}

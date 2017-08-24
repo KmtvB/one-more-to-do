@@ -1,75 +1,83 @@
 import React, { Component } from 'react';
-import { Header, HeaderTaskList, HeaderTitle } from './Headers';
+import { Header, HeaderTaskList } from './Headers';
 import { TaskList } from './TaskList';
 import DeleteTasks from './DeleteTasks';
-import { FooterNavBar, Footer, FooterDialog } from './Footers';
+import { FooterNavBar, Footer } from './Footers';
 import { InterfaceStateEnum } from './App';
+import update from 'immutability-helper';
 
 
 class ToDoList extends Component {
     constructor(props) {
         super(props);
+        const lcstr = localStorage.getItem('tasksPages');
+        const tasksPages = lcstr === null ? [{ title: 'your first page', tasks: [] }] : JSON.parse(lcstr);
         this.state = {
             page: 0,
-            titles: ['first', 'second'],
-            tasksPages: [
-                [
-                    {
-                        id: 1451,
-                        text: 'Play soccer with friends',
-                        done: false,
-                    },
-                    {
-                        id: 2562,
-                        text: 'Open Photoshop',
-                        done: true,
-                    },
-                    {
-                        id: 3645,
-                        text: 'Finish client word',
-                        done: false,
-                    },
-                    {
-                        id: 479,
-                        text: 'Give away some PSD',
-                        done: true,
-                    },
-                    {
-                        id: 557,
-                        text: 'Post a new shot to Dribbble',
-                        done: false,
-                    },
-                    {
-                        id: 154565,
-                        text: 'Место для вашей рекламы',
-                        done: false,
-                    }
-                ],
-                [
-                    {
-                        id: 16789,
-                        text: 'publish on github',
-                        done: false,
-                    }
-                ]],
+            tasksPages: tasksPages /*[
+                {
+                    title: 'first',
+                    tasks: [
+                        {
+                            text: 'Play soccer with friends',
+                            status: false,
+                        },
+                        {
+                            text: 'Open Photoshop',
+                            status: true,
+                        },
+                        {
+                            text: 'Finish client word',
+                            status: false,
+                        },
+                        {
+                            text: 'Give away some PSD',
+                            status: true,
+                        },
+                        {
+                            text: 'Post a new shot to Dribbble',
+                            status: false,
+                        },
+                        {
+                            text: 'Место для вашей рекламы',
+                            status: false,
+                        }
+                    ]
+                },
+                {
+                    title: 'second',
+                    tasks: [
+                        {
+                            text: 'publish on github',
+                            status: false,
+                        }
+                    ]
+                }],*/
         }
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        localStorage.setItem('tasksPages', JSON.stringify(prevState.tasksPages));
+    }
+
     toggleBoxHandler = (lineNumber, currentStatus) => {
-        let tasksPages = this.state.tasksPages;
-        tasksPages[this.state.page][lineNumber].done = !currentStatus;
         this.setState({
-            tasksPages: tasksPages,
+            tasksPages: update(this.state.tasksPages, { [this.state.page]: { tasks: { [lineNumber]: { status: { $set: !currentStatus } } } } })
         });
     }
     toggleBoxAllHandler = () => {
-        let tasksPages = this.state.tasksPages;
-        const allTaskIsDone = this.state.tasksPages[this.state.page].reduce((prev, curr) => prev && curr.done, true); //on current page
-        //if all task is done, then we need tick them as undone, so we use inverted allTaskIsDone
-        for (let i = 0; i < tasksPages[this.state.page].length; i++)
-            tasksPages[this.state.page][i].done = !allTaskIsDone;
+        const allTaskIsDone = this.state.tasksPages[this.state.page].tasks.reduce((prev, curr) => prev && curr.status, true); //on current page
         this.setState({
-            tasksPages: tasksPages,
+            tasksPages: update(this.state.tasksPages, {
+                [this.state.page]: {
+                    tasks:
+                    {
+                        $apply:
+                        (tasks) => tasks.map(
+                            elem => Object.assign(elem, { status: !allTaskIsDone }))
+                    }
+                }
+            })
         });
     }
     textInputOnChange = (event, lineNumber) => {
@@ -77,61 +85,57 @@ class ToDoList extends Component {
         if (newText === '') {
             this.deleteTasks([lineNumber]);
         } else {
-            let tasksPages = this.state.tasksPages;
-            tasksPages[this.state.page][lineNumber].text = newText;
             this.setState({
-                tasksPages: tasksPages,
+                tasksPages: update(this.state.tasksPages, { [this.state.page]: { tasks: { [lineNumber]: { text: { $set: newText } } } } })
             });
         }
     }
     titleOnChange = (event) => {
+        const newTitle = event.target.value;
         this.setState({
-            titles: this.state.titles.map((title, index) => index === this.state.page ? event.target.value : title),
+            tasksPages: update(this.state.tasksPages, { [this.state.page]: { title: { $set: newTitle } } })
         });
     }
 
     //
     addButtonHandler = () => {
-        let tasksPages = this.state.tasksPages;
-        tasksPages[this.state.page].push({ id: Math.floor(Math.random() * (1000 - 1)) + 1, text: '', done: false });
+        const newTask = { text: '', status: false };
         this.setState({
-            tasksPages: tasksPages,
+            tasksPages: update(this.state.tasksPages, { [this.state.page]: { tasks: { $push: [newTask] } } })
         });
     }
     deleteButtonHandler = () => {
         this.props.setInterfaceState(InterfaceStateEnum.taskList.delete);
     }
     deleteTasks = (linesNumber) => {
-        let tasksPages = this.state.tasksPages;
+        const page = this.state.page;
+        let tasksNow = this.state.tasksPages[page].tasks;
         let restLines = [];
-        for (let i = 0; i < tasksPages[this.state.page].length; i++)
+        for (let i = 0; i < tasksNow.length; i++)
             if (linesNumber.indexOf(i) === -1)
-                restLines.push(tasksPages[this.state.page][i]);
+                restLines.push(tasksNow[i]);
         if (restLines.length === 0)
             this.deletePage(this.state.page);
         else {
-            tasksPages[this.state.page] = restLines;
             this.setState({
-                tasksPages: tasksPages,
+                tasksPages: update(this.state.tasksPages, { [this.state.page]: { tasks: { $set: restLines } } })
             });
         }
     }
     deletePage = () => {
-        let tasksPages = this.state.tasksPages,
-            titles = this.state.titles,
+        let tasksPages = [...this.state.tasksPages],
             page = this.state.page;
-        titles.splice(page, 1);
         tasksPages.splice(page, 1);
         if (tasksPages.length !== 0) {
             this.setState({
-                titles: titles,
                 tasksPages: tasksPages,
-                page: page > 0 ? --page : 0,
+                page: page > 0 ? page - 1 : 0,
             });
         } else {
             this.setState({
-                titles: ['your first page'],
-                tasksPages: [[]],
+                tasksPages: [
+                    { title: 'your first page', tasks: [] }
+                ],
                 page: 0
             });
         }
@@ -144,27 +148,25 @@ class ToDoList extends Component {
         this.setState({ page: ++this.state.page });
     }
     newPageHandler = () => {
-        const newTitle = 'new page';
-        const newTasks = [];
         this.setState({
-            titles: this.state.titles.concat([newTitle]),
-            tasksPages: this.state.tasksPages.concat([newTasks]),
-            page: ++this.state.page,
+            tasksPages: update(this.state.tasksPages, { $push: [{ title: 'new page', tasks: [] }] }),
+            page: this.state.page + 1,
         });
     }
 
     render() {
         if (this.props.interfaceState === InterfaceStateEnum.taskList.base) {
-            const isPrev = this.state.page > 0,
-                isNextAsNewPage = this.state.page === this.state.tasksPages.length - 1,
-                taskOnPage = this.state.tasksPages[this.state.page];
-            const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && (curr ? curr.done : false), true);
+            const page = this.state.page,
+                isPrev = page > 0,
+                isNextAsNewPage = page === this.state.tasksPages.length - 1,
+                taskOnPage = this.state.tasksPages[page].tasks;
+            const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && (curr ? curr.status : false), true);
 
             return (
                 <div id="container">
                     <Header>
                         <HeaderTaskList
-                            pageTitle={this.state.titles[this.state.page]} titleOnChange={this.titleOnChange}
+                            pageTitle={this.state.tasksPages[page].title} titleOnChange={this.titleOnChange}
                             toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}
                             addOnClick={this.addButtonHandler}
                             delOnClick={this.deleteButtonHandler}
@@ -185,7 +187,7 @@ class ToDoList extends Component {
                 </div>
             );
         } else if (this.props.interfaceState === InterfaceStateEnum.taskList.delete) {
-            const taskOnPage = this.state.tasksPages[this.state.page];
+            const taskOnPage = this.state.tasksPages[this.state.page].tasks;
             return (
                 <DeleteTasks
                     taskOnPage={taskOnPage}
