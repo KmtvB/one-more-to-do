@@ -1,89 +1,84 @@
 import React, { Component } from 'react';
-import Line from './Line.js';
+import { LineTwoArea } from './Line.js';
+import { TaskTextArea } from './Inputs';
 import TickBox from './TickBox';
 import './css/tasklist.css';
 
-class TaskList extends Component {
-    static adjustTextAreaHeight(elem) {
-        elem.style.height = '1px';
-        elem.style.height = elem.scrollHeight + 'px';
-    }
-    keyPressHandler(event){
-        if (event.key === 'Enter')
-            event.target.blur();
-        TaskList.adjustTextAreaHeight(event.target);
-    }
-    keyUpHandler(event) {
-        TaskList.adjustTextAreaHeight(event.target);
-    }
+const List = ({ children }) => {
+    return (
+        <div className="list">
+            <ul>
+                {children}
+            </ul>
+        </div>
+    );
+}
 
-    componentDidMount() {
-        [...this.textAreaList].map(TaskList.adjustTextAreaHeight);
-    }  
-    render() {
-        this.textAreaList = [];
-        const list = this.props.taskOnPage.map((elem, lineNumber) => {
-            const leftArea = (
-                    <TickBox
-                        isClosed={elem.status}
-                        toggleBoxOnClick={() => this.props.toggleBoxOnClick(lineNumber, elem.status)}
-                    />
-            );
-            const rightArea = (
-                <textarea type="text"
-                    onChange={(e) => this.props.inputOnChange(e, lineNumber)}
-                    ref={(elem) => {this.textAreaList.push(elem);}}
-                    onKeyPress={this.keyPressHandler}
-                    onKeyUp={this.keyUpHandler}
-                    value={elem.text}/>
-            );
-            return (
-                <li key={lineNumber.toString()}>
-                    <Line
-                        left={leftArea}
-                        right={rightArea}
-                    />
+const TaskLine = ({ status, id }) => {
+    return (
+        <LineTwoArea>
+            {<TickBox id={id} />}
+            {<TaskTextArea id={id} />}
+        </LineTwoArea>
+    );
+}
+
+export const BaseTaskListView = ({ tasks }) => {
+    return (
+        <List>
+            {tasks.map(task =>
+                <li key={task.id}>
+                    <TaskLine status={task.status} id={task.id} />
                 </li>
-            );
-        });
+            )}
+        </List>
+    );
+}
+
+const TextLine = ({ text }) => {
+    return (
+        <LineTwoArea>
+            {<div className="left-empty"></div>}
+            {<span className="task-text">{text}</span>}
+        </LineTwoArea>
+    );
+}
+
+class SelectListView extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedLines: []
+        }
+    }
+    onClickHandler = (lineNumber) => {
+        const indx = this.state.selectedLines.indexOf(lineNumber);
+        if (indx === -1)
+            this.setState({ selectedLines: [...this.state.selectedLines, lineNumber] });
+        else
+            this.setState({ selectedLines: [...this.state.selectedLines].splice(indx, 1) });
+    }
+    render() {
         return (
-            <div className="list">
-                <ul>
-                    {list}
-                </ul>
-            </div>
+            <List>
+                {this.props.list.map((elem, index) =>
+                    <li
+                        key={index}
+                        onClick={this.onClickHandler}
+                        className={(this.state.selectedLines.indexOf(index) !== -1 ? this.props.classSelected : this.props.classUnSelected)}
+                    >
+                        {elem}
+                    </li>
+                )}
+            </List>
         );
     }
 }
 
-
-class TaskListTipLines extends Component {
-    render() {
-        const list = this.props.taskOnPage.map((elem, lineNumber) => {
-            const leftArea = <div className="left-empty"></div>;
-            const rightArea = (
-                <div className={"task-text " + (this.props.selectedLines.indexOf(lineNumber) !== -1 ? "to-delete" : "")}
-                    onClick={() => this.props.taskOnClick(lineNumber)}>
-                    {elem.text}
-                </div>
-            );
-            return (
-                <li key={elem.id}>
-                    <Line
-                        left={leftArea}
-                        right={rightArea}
-                    />
-                </li>
-            );
-        });
-        return (
-            <div className="list">
-                <ul>
-                    {list}
-                </ul>
-            </div>
-        );
-    }
+export const DeleteTaskListView = ({ tasks }) => {
+    return <SelectListView
+        classUnSelected={""}
+        classSelected={"to-delete"}
+        list={tasks.map(elem => <TextLine text={elem.text} />)}
+    />;
 }
-
-export { TaskListTipLines, TaskList };

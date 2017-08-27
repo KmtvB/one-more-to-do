@@ -21,7 +21,7 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.list .task-text.to-delete {
+.list .to-delete {
     background-color: rgba(255, 93, 93, 0.62);
 }
 

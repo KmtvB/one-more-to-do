@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import './css/line.css';
 
-
-export class Line extends Component {
-    render() {
-        return (
-            <div className="line">
-                <div className="left-area">
-                    {this.props.left}
-                </div>
-                <div className="right-area">
-                    {this.props.right}
-                </div>
+export const LineTwoArea = (props) => {
+    return (
+        <div className="line">
+            <div className="left-area">
+                {props.children[0]}
             </div>
-        );
-    }
+            <div className="right-area">
+                {props.children[1]}
+            </div>
+        </div>
+    );
 }
 
-export default Line;

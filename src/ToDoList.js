@@ -5,6 +5,7 @@ import DeleteTasks from './DeleteTasks';
 import { FooterNavBar, Footer } from './Footers';
 import { InterfaceStateEnum } from './App';
 import update from 'immutability-helper';
+import { InterfaceState } from './actions';
 
 
 class ToDoList extends Component {
@@ -155,10 +156,10 @@ class ToDoList extends Component {
     }
 
     render() {
-        if (this.props.interfaceState === InterfaceStateEnum.taskList.base) {
-            const page = this.state.page,
+        if (this.props.interfaceState === InterfaceState.TASKLIST.BASE) {
+            const page = this.props.page,
                 isPrev = page > 0,
-                isNextAsNewPage = page === this.state.tasksPages.length - 1,
+                isNextAsNewPage = page === this.props.maxPage,
                 taskOnPage = this.state.tasksPages[page].tasks;
             const allTaskIsDone = taskOnPage.reduce((prev, curr) => prev && (curr ? curr.status : false), true);
 
@@ -166,11 +167,8 @@ class ToDoList extends Component {
                 <div id="container">
                     <Header>
                         <HeaderTaskList
-                            pageTitle={this.state.tasksPages[page].title} titleOnChange={this.titleOnChange}
+                            pageTitle={this.props.title} titleOnChange={this.titleOnChange}
                             toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}
-                            addOnClick={this.addButtonHandler}
-                            delOnClick={this.deleteButtonHandler}
-                            setOnClick={this.settingsButtonHandler}
                         />
                     </Header>
                     <TaskList 
@@ -180,13 +178,13 @@ class ToDoList extends Component {
                     />
                     <Footer>
                         <FooterNavBar
-                            isPrevActive={isPrev} prevOnClick={this.prevPage}
-                            isNextAsNewPage={isNextAsNewPage} nextOnClick={isNextAsNewPage ? this.newPageHandler : this.nextPage}
+                            isPrevActive={isPrev}
+                            isNextAsNewPage={isNextAsNewPage}
                         />
                     </Footer>
                 </div>
             );
-        } else if (this.props.interfaceState === InterfaceStateEnum.taskList.delete) {
+        } else if (this.props.interfaceState === InterfaceState.TASKLIST.DELETE) {
             const taskOnPage = this.state.tasksPages[this.state.page].tasks;
             return (
                 <DeleteTasks
