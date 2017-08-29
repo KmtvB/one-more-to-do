@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LineTwoArea } from './Line.js';
 import { TaskTextArea } from './Inputs';
-import TickBox from './TickBox';
+import { TickBox } from './TickBox';
 import './css/tasklist.css';
 
 const List = ({ children }) => {
@@ -14,7 +14,7 @@ const List = ({ children }) => {
     );
 }
 
-const TaskLine = ({ status, id }) => {
+const TaskLine = ({ id }) => {
     return (
         <LineTwoArea>
             {<TickBox id={id} />}
@@ -23,12 +23,15 @@ const TaskLine = ({ status, id }) => {
     );
 }
 
-export const BaseTaskListView = ({ tasks }) => {
+export const TaskListViewInput = ({ tasks, toggleBoxOnClick, inputOnChange }) => {
     return (
         <List>
-            {tasks.map(task =>
+            {tasks.map((task, indx) =>
                 <li key={task.id}>
-                    <TaskLine status={task.status} id={task.id} />
+                    <LineTwoArea>
+                        {<TickBox id={indx} onClick={toggleBoxOnClick} isDone={task.status} />}
+                        {<TaskTextArea text={task.text} id={indx} inputOnChange={inputOnChange} />}
+                    </LineTwoArea>
                 </li>
             )}
         </List>
@@ -56,15 +59,21 @@ class SelectListView extends Component {
         if (indx === -1)
             this.setState({ selectedLines: [...this.state.selectedLines, lineNumber] });
         else
-            this.setState({ selectedLines: [...this.state.selectedLines].splice(indx, 1) });
+            this.setState({ selectedLines: this.state.selectedLines.filter((_, i) => i !== indx) });
+        
     }
+    componentDidUpdate() {
+        if (this.props.hasOwnProperty('selectedLineGetter'))
+            this.props.selectedLineGetter(this.state.selectedLines);
+    }
+    
     render() {
         return (
             <List>
                 {this.props.list.map((elem, index) =>
                     <li
                         key={index}
-                        onClick={this.onClickHandler}
+                        onClick={() => this.onClickHandler(index)} data-lineNumber={index}
                         className={(this.state.selectedLines.indexOf(index) !== -1 ? this.props.classSelected : this.props.classUnSelected)}
                     >
                         {elem}
@@ -75,10 +84,13 @@ class SelectListView extends Component {
     }
 }
 
-export const DeleteTaskListView = ({ tasks }) => {
-    return <SelectListView
-        classUnSelected={""}
-        classSelected={"to-delete"}
-        list={tasks.map(elem => <TextLine text={elem.text} />)}
-    />;
+export const TaskListViewSelect = ({ tasks, selectedLineGetter }) => {
+    return (
+        <SelectListView
+            classUnSelected={""}
+            classSelected={"to-delete"}
+            list={tasks.map(elem => <TextLine text={elem.text} />)}
+            selectedLineGetter={selectedLineGetter}
+        />
+    );
 }

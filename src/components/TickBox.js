@@ -17,7 +17,7 @@ export const TickBoxAll = ({ page, onClick, isDone }) => {
         <div className="tickbox-container">
             <div
                 className={"tick-box " + (isDone ? 'done' : 'open')}
-                onClick={() => onClick(page)}
+                onClick={() => onClick()}
             ></div>
         </div>
     );

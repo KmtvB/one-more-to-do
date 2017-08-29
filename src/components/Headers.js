@@ -15,15 +15,15 @@ const ControlButton = ({ className, ...props }) => {
     return <div className={"control-icon " + className} {...props}></div>;
 }
 
-export const HeaderTaskList = ({ pageTitle, addTodo, setInterface, changeTitle }) => {
+export const HeaderTaskList = (props) => {
     return (
         <LineTwoArea>
-            {<TickBoxAll />}
+            {<TickBoxAll isDone={props.toggleBoxAllTask} onClick={props.toggleBoxOnClick} />}
             {<div className="control-panel">
-                <ControlButton className="add-icon" onClick={() => addTodo()}></ControlButton>
-                <ControlButton className="delete-icon" onClick={() => setInterface()}></ControlButton>
-                <input className="page-title" value={pageTitle} onChange={() => changeTitle()} />
-                <ControlButton className="settings-icon" onClick={() => setInterface()}></ControlButton>
+                <ControlButton className="add-icon" onClick={props.addButtonOnClick} />
+                <ControlButton className="delete-icon" onClick={props.deleteButtonOnClick} />
+                <input className="page-title" value={props.pageTitle} onChange={props.titleOnChange} />
+                <ControlButton className="settings-icon" onClick={props.settingsButtonOnClick} />
             </div>}
         </LineTwoArea>
     );

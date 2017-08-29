@@ -1,4 +1,3 @@
-import React from 'react';
 import React, { Component } from 'react';
 
 function adjustTextAreaHeight(elem) {
@@ -14,10 +13,13 @@ export class TaskTextArea extends Component {
     keyUpHandler(event) {
         adjustTextAreaHeight(event.target);
     }
+    onChange = (event) => {
+        this.props.inputOnChange(event, this.props.id);
+    }
     render() {
         return (
             <textarea type="text"
-                onChange={(e) => this.props.editTask(this.props.id, e.target.value)}
+                onChange={this.onChange}
                 onKeyPress={this.keyPressHandler}
                 onKeyUp={this.keyUpHandler}
                 value={this.props.text} />
