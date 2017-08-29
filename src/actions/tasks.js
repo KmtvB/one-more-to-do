@@ -1,14 +1,14 @@
 import { ADD_TASK, DELETE_TASKS, EDIT_TASK, TOGGLE_BOX, TOGGLE_BOXS_PAGE } from './ActionTypes';
 import { NEW_PAGE, DELETE_PAGE, EDIT_PAGE_TITLE } from './ActionTypes'
+import { v4 } from 'uuid'
 
 /*
 ** Tasks
 */
-let lastId = 1
 export const addTask = () => {
     return {
         type: ADD_TASK,
-        id: lastId++,
+        id: v4(),
     }
 }
 

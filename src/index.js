@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
+import persistState from 'redux-localstorage'
 
 import todoApp from './reducers';
 import App from './container/App';
 
 import './index.css';
 
-let store = createStore(todoApp);
+const enhancer = compose(
+  persistState(),
+);
+const store = createStore(todoApp, enhancer);
 
 ReactDOM.render(
   <Provider store={store}>

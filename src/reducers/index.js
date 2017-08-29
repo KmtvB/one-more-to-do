@@ -1,13 +1,14 @@
 import { tasks, titles } from './tasks';
 import {interfaceState, page } from './interface';
 import { InterfaceStateEnum } from '../actions/ActionTypes'
+import { v4 } from 'uuid';
 
 const initState = {
     titles: ['your first page'],
     tasks: [{
             text: 'your first task',
             status: false,
-            id: 0,
+            id: v4(),
             page: 0
     }],
     interfaceState: InterfaceStateEnum.taskList.base,
