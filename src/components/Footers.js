@@ -40,10 +40,12 @@ export const FooterNavBar = (props) => {
         </div>
     );
     return (
-        <LineTwoArea>
-            {<div className="left-empty"></div>}
-            {rightArea}
-        </LineTwoArea>
+        <Footer>
+            <LineTwoArea>
+                {<div className="left-empty"></div>}
+                {rightArea}
+            </LineTwoArea>
+        </Footer>
     );
 }
 
@@ -57,13 +59,15 @@ const DialogButton = ({ className, children, ...props }) => {
 
 export const FooterDialog = ({ yesOnClick, noOnClick }) => {
     return (
-        <LineTwoArea>
-            {<div className="left-empty"></div>}
-            {<div className="dialog-panel">
-                <DialogButton className="button-no" onClick={noOnClick}>No</DialogButton>
-                <DialogButton className="button-yes" onClick={yesOnClick}>Yes</DialogButton>
-            </div>}
-        </LineTwoArea>
+        <Footer>
+            <LineTwoArea>
+                {<div className="left-empty"></div>}
+                {<div className="dialog-panel">
+                    <DialogButton className="button-no" onClick={noOnClick}>No</DialogButton>
+                    <DialogButton className="button-yes" onClick={yesOnClick}>Yes</DialogButton>
+                </div>}
+            </LineTwoArea>
+        </Footer>
     );
 }
 

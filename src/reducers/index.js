@@ -1,21 +1,30 @@
-import tasks from './tasks';
-import interfaceState from './interface';
-import { combineReducers } from 'redux';
+import { tasks, titles } from './tasks';
+import {interfaceState, page } from './interface';
+import { InterfaceStateEnum } from '../actions/ActionTypes'
 
-/*treeExpample = {
+const initState = {
+    titles: ['your first page'],
     tasks: [{
-        title: 'your first page',
-        tasksOnPage: [{
             text: 'your first task',
-            status: false
-        }]
+            status: false,
+            id: 0,
+            page: 0
     }],
-    interfaceState: InterfaceState.TASKLIST.BASE,
-} */
+    interfaceState: InterfaceStateEnum.taskList.base,
+    page: {
+        current: 0,
+        maxPage: 0
+    }
+}
 
-const todoApp = combineReducers({
-    interfaceState,
-    tasks
-});
+const todoApp = (state = initState, action) => {
+    const spage = Object.assign({}, state.page);
+    return {
+        titles: titles(state.titles, { ...action, page: spage.current }),
+        tasks: tasks(state.tasks, {...action, page: spage.current }),
+        interfaceState: interfaceState(state.interfaceState, action),
+        page: page(state.page, action)
+    }
+}
 
 export default todoApp;

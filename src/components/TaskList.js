@@ -14,30 +14,26 @@ const List = ({ children }) => {
     );
 }
 
-const TaskLine = ({ id }) => {
-    return (
-        <LineTwoArea>
-            {<TickBox id={id} />}
-            {<TaskTextArea id={id} />}
-        </LineTwoArea>
-    );
-}
-
+/* 
+* for base view
+*/  
 export const TaskListViewInput = ({ tasks, toggleBoxOnClick, inputOnChange }) => {
     return (
         <List>
             {tasks.map((task, indx) =>
                 <li key={task.id}>
                     <LineTwoArea>
-                        {<TickBox id={indx} onClick={toggleBoxOnClick} isDone={task.status} />}
-                        {<TaskTextArea text={task.text} id={indx} inputOnChange={inputOnChange} />}
+                        {<TickBox id={task.id} onClick={toggleBoxOnClick} isDone={task.status} />}
+                        {<TaskTextArea id={task.id} text={task.text} inputOnChange={inputOnChange} />}
                     </LineTwoArea>
                 </li>
             )}
         </List>
     );
 }
-
+/* 
+* for delete view
+*/    
 const TextLine = ({ text }) => {
     return (
         <LineTwoArea>
@@ -63,7 +59,7 @@ class SelectListView extends Component {
         
     }
     componentDidUpdate() {
-        if (this.props.hasOwnProperty('selectedLineGetter'))
+        if (this.props.hasOwnProperty('selectedLineGetter')) 
             this.props.selectedLineGetter(this.state.selectedLines);
     }
     

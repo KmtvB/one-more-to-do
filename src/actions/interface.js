@@ -1,4 +1,4 @@
-import { SET_INTERFACE } from './ActionTypes';
+import { SET_INTERFACE, NEXT_PAGE, PREV_PAGE } from './ActionTypes';
 
 export const setInterfaceState = (state) => {
     return {
@@ -7,14 +7,14 @@ export const setInterfaceState = (state) => {
     }  
 };
 
-// export const nextPage = () => {
-//     return {
-//         type: NEXT_PAGE,
-//     }
-// }
+export const nextPage = () => {
+    return {
+        type: NEXT_PAGE,
+    }
+}
 
-// export const prevPage = () => {
-//     return {
-//         type: PREV_PAGE,
-//     }
-// }
+export const prevPage = () => {
+    return {
+        type: PREV_PAGE,
+    }
+}

@@ -4,15 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: sans-serif;
-  background-color: rgb(244, 241, 241);
-}
-
-ul {
-  list-style: none;
-}
-
 #container {
   position: absolute;
   top: 50%;
@@ -26,8 +17,13 @@ ul {
   box-shadow:  0 0 3px rgb(245, 243, 243);
 }
 
-.left-empty {
-  width: 100%;
+body {
+  font-family: sans-serif;
+  background-color: rgb(244, 241, 241);
+}
+
+ul {
+  list-style: none;
 }
 
 body input, body textarea {

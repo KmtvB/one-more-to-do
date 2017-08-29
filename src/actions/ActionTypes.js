@@ -23,5 +23,4 @@ export const InterfaceStateEnum = {
     pageList: 'pageList',
     login: 'login',
 }
-
 //

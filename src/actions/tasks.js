@@ -4,25 +4,24 @@ import { NEW_PAGE, DELETE_PAGE, EDIT_PAGE_TITLE } from './ActionTypes'
 /*
 ** Tasks
 */
-export const addTask = (page) => {
+let lastId = 1
+export const addTask = () => {
     return {
-        type: ADD_TASK, 
-        page
+        type: ADD_TASK,
+        id: lastId++,
     }
 }
 
-export const deleteTasks = (page, ids) => {
+export const deleteTasks = (ids) => {
     return {
         type: DELETE_TASKS,
-        page,
         ids
     }
 }
 
-export const editTask = (page, id, text) => {
+export const editTask = (id, text) => {
     return {
         type: EDIT_TASK,
-        page,
         id,
         text
     }
@@ -31,18 +30,16 @@ export const editTask = (page, id, text) => {
 /*
 ** Status
 */
-export const toggleBox = (page, id) => {
+export const toggleBox = (id) => {
     return {
         type: TOGGLE_BOX,
-        page, 
         id
     }
 }
 
-export const toggleAllBoxOnPage = (page) => {
+export const toggleAllBoxOnPage = () => {
     return {
         type: TOGGLE_BOXS_PAGE,
-        page
     }
 }
 
@@ -56,17 +53,18 @@ export const newPage = () => {
     }
 }
 
-export const deletePage = (page) => {
+export const deletePage = () => {
     return {
         type: DELETE_PAGE,
-        page
     }
 }
 
-export const editPageTitle = (page, text) => {
+/*
+** Title
+*/
+export const editPageTitle = (text) => {
     return {
         type: EDIT_PAGE_TITLE,
-        page,
         text
     }
 };
