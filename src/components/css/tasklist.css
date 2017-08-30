@@ -1,6 +1,14 @@
 
+@media only screen and (max-width: 500px) {
+    .list  {
+        margin-top: 40px;
+        margin-bottom: 45px;
+    }
+}
+
 .list li  {
     height: auto;
+    background-color: white;
 }
 
 .list .task-text, .list textarea {

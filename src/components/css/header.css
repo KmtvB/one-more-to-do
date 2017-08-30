@@ -1,5 +1,14 @@
 header {
     height: 40px;
+    background-color: white;
+}
+
+@media only screen and (max-width: 500px) {
+    header  {
+        position: fixed;
+        top: 0;
+        width: 95%;
+    }
 }
 
 .header-title {
