@@ -5,6 +5,8 @@ import { TaskListViewInput, TaskListViewSelect } from '../components/TaskList';
 import { FooterNavBar, FooterDialog } from './Footers';
 import { InterfaceStateEnum } from '../actions/ActionTypes';
 
+import './css/todolist.css';
+
 
 export class ToDoListViewBase extends Component {
     toggleBoxHandler = (id) => {
@@ -35,7 +37,7 @@ export class ToDoListViewBase extends Component {
         const allTaskIsDone = this.props.tasks.reduce((prev, curr) => prev && (curr ? curr.status : false), true);
 
         return (
-            <div id="container">
+            <section id="container">
                 <HeaderTaskList
                     pageTitle={this.props.title} titleOnChange={this.titleChangeHandler}
                     toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}
@@ -54,7 +56,7 @@ export class ToDoListViewBase extends Component {
                     isNextAsNewPage={this.props.isLastPage}
                     nextOnClick={this.props.isLastPage ? this.props.newPage : this.props.nextPage}
                 />
-            </div>
+            </section>
         );
     }
 }
@@ -77,7 +79,7 @@ export class ToDoListViewDelete extends Component {
 
     render() {
         return (
-            <div id="container">
+            <section id="container">
                 <HeaderTitle text={'select to delete'} />
                 <TaskListViewSelect
                     tasks={this.props.tasks}
@@ -87,7 +89,7 @@ export class ToDoListViewDelete extends Component {
                     yesOnClick={this.yesHandler}
                     noOnClick={this.noHandler}
                 />
-            </div>
+            </section>
         );
     }
 }

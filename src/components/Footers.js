@@ -4,9 +4,9 @@ import './css/footer.css';
 
 export const Footer = ({ children }) => {
     return (
-        <div className="footer">
+        <footer>
             {children}
-        </div>
+        </footer>
     );
 }
 
@@ -29,7 +29,6 @@ export const FooterNavBar = (props) => {
                 (
                     <NavButton onClick={props.nextOnClick} className="nav-button-new">
                         <span>New page</span>
-                        <div className="nav-icon new-icon"></div>
                     </NavButton>
                 ) : (
                     <NavButton onClick={props.nextOnClick} className="nav-button-next">

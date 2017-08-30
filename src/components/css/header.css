@@ -1,4 +1,4 @@
-.header {
+header {
     height: 40px;
 }
 
@@ -15,10 +15,13 @@
     background-repeat: no-repeat;
     width: 15px;
     height: 15px;
+    cursor: pointer;
 }
 
 .add-icon {
     background-image: url("/images/add.png");
+    margin-right: 3px;
+    margin-left: -3px;
 }
 
 .delete-icon {
@@ -33,17 +36,14 @@
     height: 100%;
 }
 
-.control-panel > div {
-    flex: 0 0 15px;
-}
-
 input.page-title {
     font-weight: bold;
     font-size: small;
-    margin-left: 33px;
+    text-align: center;
     flex: 1 0 auto;
-    border: none;
     width: 1px;
+    margin: 0 12px;
+    overflow: hidden;
 }
 
 .settings-icon {

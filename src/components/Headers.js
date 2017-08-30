@@ -5,9 +5,9 @@ import './css/header.css';
 
 export const Header = ({ children }) => {
     return (
-        <div className="header">
+        <header>
             {children}
-        </div>
+        </header>
     );
 }
 
