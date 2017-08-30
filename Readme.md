@@ -4,9 +4,9 @@
 ## Features
 * Pages as groups, pages can have title
 * Deleting tasks
-* The rest is the same as others app has
+* The rest is the same as others apps have
 ## Build&Run
-1. `clone repo`
+1. clone repo
 2. `npm install`
 3. wait eternity
 4. `npm start` 
@@ -18,10 +18,11 @@
 * ~~Redux~~
 * ~~localStorage~~
 * ~~README.md~~
-* CSS adaptive, HTML semantic
+* ~~CSS mobile, HTML semantic~~
 * propTypes
 * React-router
 * List of pages
 * Server REST, database
 * Users && login
+* New interface
 * React Native
