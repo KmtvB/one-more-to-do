@@ -9,10 +9,10 @@ import './style/task.css'
 export const LineTwoArea = ({ children }) => {
     return (
         <div className="line">
-            <div className="left-area">
+            <div className="line__left-area">
                 {children[0]}
             </div>
-            <div className="right-area">
+            <div className="line__right-area">
                 {children[1]}
             </div>
         </div>
@@ -20,7 +20,7 @@ export const LineTwoArea = ({ children }) => {
 }
 
 export const EmptyLeft = () => {
-    return <div className="left-empty"></div>
+    return <div className="line__left-empty"></div>
 }
 
 export const TaskLineInput = ({ task, toggleBoxOnClick, inputOnChange }) => {
@@ -36,7 +36,9 @@ export const TaskLineText = ({ text, textClassName, onClick }) => {
     return (
         <LineTwoArea>
             {<EmptyLeft />}
-            {<div className={"task-text "  + (textClassName ? textClassName : '')} onClick={onClick}>{text}</div>}
+            {<div className={"task-text " + (textClassName ? textClassName : '')} onClick={onClick}>
+                {text}
+            </div>}
         </LineTwoArea>
     );
 }

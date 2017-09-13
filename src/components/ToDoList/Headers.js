@@ -5,29 +5,34 @@ import ControlButton from '../Buttons/ControlButton'
 
 import './style/header.css'
 
+const Header = ({ children }) => {
+    return <header className="header to-do__header">{children}</header>
+}
+
+
 export const HeaderTaskList = (props) => {
     return (
-        <header>
+        <Header>
             <LineTwoArea>
                 {<TaskTickBox isDone={props.toggleBoxAllTask} onClick={props.toggleBoxOnClick} />}
-                {<div className="control-panel">
+                {<div className="header__panel">
                     <ControlButton className="add-icon" onClick={props.addButtonOnClick} />
                     <ControlButton className="delete-icon" onClick={props.deleteButtonOnClick} />
-                    <input className="page-title" value={props.pageTitle} onChange={(e) => props.titleOnChange(e.target.value)} />
+                    <input className="header__page-title" value={props.pageTitle} onChange={(e) => props.titleOnChange(e.target.value)} />
                     <ControlButton className="settings-icon" onClick={props.settingsButtonOnClick} />
                 </div>}
             </LineTwoArea>
-        </header>
+        </Header>
     );
 }
 
 export const HeaderTitle = ({ text }) => {
     return (
-        <header>
+        <Header>
             <LineTwoArea>
                 {<EmptyLeft />}
-                {<div className="header-title">{text}</div>}
+                {<div className="header__header-text">{text}</div>}
             </LineTwoArea>
-        </header>
+        </Header>
     );
 }

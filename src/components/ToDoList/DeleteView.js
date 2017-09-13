@@ -57,7 +57,7 @@ class DeleteView extends Component {
 
     render() {
         return (
-            <section className="container">
+            <section className="to-do">
                 <HeaderTitle text={'select to delete'} />
                 {this.renderList()}
                 <FooterDialog

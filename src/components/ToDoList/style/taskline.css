@@ -5,13 +5,13 @@
     border-bottom: 1px solid rgb(230, 235, 237);
 }
 
-.line .left-area {
+.line__left-area {
     flex: 0 0 44px;
     display: flex;
     align-items: center;
 }
 
-.line .left-area::after {
+.line__left-area::after {
     display: block; 
     content: "";
     height: 100%;
@@ -20,11 +20,12 @@
     border-left: 1px solid rgb(242, 227, 223);
 }
 
-.line .right-area {
+.line__right-area {
+    padding: 0 10px;
     flex: 1 0 auto;
 }
 
-.left-empty {
+.line__left-empty {
     width: 100%;
 }
 

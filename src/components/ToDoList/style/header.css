@@ -1,42 +1,36 @@
-header {
+.header {
     height: 40px;
     background-color: white;
 }
 
 @media only screen and (max-width: 500px) {
-    header  {
+    .to-do__header  {
         position: fixed;
         top: 0;
         width: 95%;
     }
 }
 
-.header-title {
+.header__panel {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}    
+
+.header__header-text {
     line-height: 40px;
     text-align: center;
     vertical-align: center;
     color: rgb(139, 143, 151);
 }
 
-.control-panel {
-    padding: 0px 10px 0px 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
-}
-
-input.page-title {
+.header__page-title {
     font-weight: bold;
     font-size: small;
     text-align: center;
+    margin: 0 12px;
     flex: 1 0 auto;
     width: 1px;
-    margin: 0 12px;
     overflow: hidden;
-}
-
-.settings-icon {
-    background-position-x: 100%;
-    background-image: url("/images/cog.png");
 }

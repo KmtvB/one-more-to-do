@@ -45,7 +45,7 @@ class BaseView extends Component {
         const allTaskIsDone = this.props.tasks.reduce((prev, curr) => prev && (curr ? curr.status : false), true)
 
         return (
-            <section className="container">
+            <section className="to-do">
                 <HeaderTaskList
                     pageTitle={this.props.title} titleOnChange={this.titleChangeHandler}
                     toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}

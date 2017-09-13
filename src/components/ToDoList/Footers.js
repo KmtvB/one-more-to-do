@@ -5,33 +5,38 @@ import { DialogButtonNo, DialogButtonYes } from '../Buttons/DialogButton'
 
 import './style/footer.css';
 
+const Footer = ({ children }) => {
+    return <footer className="footer to-do__footer">{children}</footer>
+}
+
+
 export const FooterNavBar = (props) => {
     return (
-        <footer>
+        <Footer>
             <LineTwoArea>
                 {<EmptyLeft />}
-                {<div className="nav-panel">
+                {<div className="footer__panel">
                     <NavButtonPrev disabled={!props.isPrevActive} onClick={props.prevOnClick} />
                     {props.isNextAsNewPage ?
                         (<NavButtonNewPage onClick={props.nextOnClick} />) :
                         (<NavButtonNext onClick={props.nextOnClick} />)}
                 </div>}
             </LineTwoArea>
-        </footer>
+        </Footer>
     );
 }
 
 export const FooterDialog = ({ yesOnClick, noOnClick }) => {
     return (
-        <footer>
+        <Footer>
             <LineTwoArea>
                 {<EmptyLeft />}
-                {<div className="dialog-panel">
+                {<div className="footer__panel">
                     <DialogButtonNo onClick={noOnClick} />
                     <DialogButtonYes onClick={yesOnClick} />
                 </div>}
             </LineTwoArea>
-        </footer>
+        </Footer>
     );
 }
 

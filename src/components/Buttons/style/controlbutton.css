@@ -17,3 +17,8 @@
 .delete-icon {
     background-image: url("/images/trash 2.png");
 }
+
+.settings-icon {
+    background-position-x: 100%;
+    background-image: url("/images/cog.png");
+}

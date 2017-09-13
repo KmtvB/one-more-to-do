@@ -1,5 +1,5 @@
 
-.container {
+.to-do {
     width: 250px;
     margin: 220px auto;
     color: rgb(139, 143, 151);
@@ -9,7 +9,7 @@
 }
   
 @media only screen and (max-width: 500px) {
-    .container {
+    .to-do {
         margin: 0 auto;
         width: 95%;
         height: 95%;
@@ -18,7 +18,3 @@
 }
   
 
-
-.to-delete {
-    background-color: rgba(255, 93, 93, 0.62);
-}
