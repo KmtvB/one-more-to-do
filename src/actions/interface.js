@@ -1,4 +1,4 @@
-import { SET_INTERFACE, NEXT_PAGE, PREV_PAGE } from './ActionTypes';
+import { SET_INTERFACE, NEXT_PAGE, PREV_PAGE } from '../constants/ActionTypes';
 
 export const setInterfaceState = (state) => {
     return {

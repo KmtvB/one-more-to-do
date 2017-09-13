@@ -12,15 +12,3 @@ export const EDIT_PAGE_TITLE = 'EDIT_PAGE_TITLE';
 export const PREV_PAGE = 'PREV_PAGE';
 export const NEXT_PAGE = 'NEXT_PAGE';
 export const SET_INTERFACE = 'SET_INTERFACE';
-
-//constants
-export const InterfaceStateEnum = {
-    settings: 'settings',
-    taskList: {
-      base: 'taskList-browse',
-      delete: 'taskList-delete',
-    },
-    pageList: 'pageList',
-    login: 'login',
-}
-//

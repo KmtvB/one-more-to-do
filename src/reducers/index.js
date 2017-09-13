@@ -1,6 +1,6 @@
 import { tasks, titles } from './tasks';
 import {interfaceState, page } from './interface';
-import { InterfaceStateEnum } from '../actions/ActionTypes'
+import { InterfaceStateEnum } from '../constants/Enums'
 import { v4 } from 'uuid';
 
 const initState = {

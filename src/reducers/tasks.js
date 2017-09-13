@@ -1,5 +1,5 @@
-import { ADD_TASK, DELETE_TASKS, EDIT_TASK, TOGGLE_BOX, TOGGLE_BOXS_PAGE } from '../actions/ActionTypes';
-import { EDIT_PAGE_TITLE, DELETE_PAGE, NEW_PAGE } from '../actions/ActionTypes';
+import { ADD_TASK, DELETE_TASKS, EDIT_TASK, TOGGLE_BOX, TOGGLE_BOXS_PAGE } from '../constants/ActionTypes';
+import { EDIT_PAGE_TITLE, DELETE_PAGE, NEW_PAGE } from '../constants/ActionTypes';
 /* 
 page -> page.current
  */

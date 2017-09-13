@@ -14,6 +14,7 @@
 .list .task-text, .list textarea {
     padding: 0 10px 0 10px;
     line-height: 30px;
+    height: 30px;
     vertical-align: middle;
     font-size: 13px;
     font-weight: bold;
@@ -22,7 +23,6 @@
 .list textarea, .list textarea:focus {
     word-wrap: break-word;
     overflow: hidden;
-    height: 30px;
     resize: none;
     width: 100%;
     border: none;

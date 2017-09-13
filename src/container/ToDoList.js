@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionsTask from '../actions';
-import { ToDoListViewBase, ToDoListViewDelete } from '../components/ToDoListView';
+import { ToDoListBaseView, ToDoListDeleteView } from '../components/ToDoList';
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(actionsTask, dispatch);
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 export const ToDoListBase = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ToDoListViewBase);
+)(ToDoListBaseView);
 
 /* 
 * delete view
@@ -30,4 +30,4 @@ export const ToDoListBase = connect(
 export const ToDoListDelete = connect(
     (state) => ({ tasks: state.tasks.filter(task => task.page === state.page.current) }),
     mapDispatchToProps
-)(ToDoListViewDelete);
+)(ToDoListDeleteView);

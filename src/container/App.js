@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { ToDoListBase, ToDoListDelete } from './ToDoList';
-import { InterfaceStateEnum } from '../actions/ActionTypes';
+import { InterfaceStateEnum } from '../constants/Enums';
 
 class AppView extends Component {
   render() {
+    console.log(this.props.interfaceState, InterfaceStateEnum.taskList.base)
     if (this.props.interfaceState === InterfaceStateEnum.taskList.base)
       return <ToDoListBase />
     else if (this.props.interfaceState === InterfaceStateEnum.taskList.delete)

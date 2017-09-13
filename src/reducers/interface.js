@@ -1,5 +1,5 @@
-import { SET_INTERFACE, NEXT_PAGE, PREV_PAGE, NEW_PAGE, DELETE_PAGE } from '../actions/ActionTypes';
-import { InterfaceStateEnum } from '../actions/ActionTypes';
+import { SET_INTERFACE, NEXT_PAGE, PREV_PAGE, NEW_PAGE, DELETE_PAGE } from '../constants/ActionTypes';
+import { InterfaceStateEnum } from '../constants/Enums';
 
 const initState = InterfaceStateEnum.taskList.base;
 

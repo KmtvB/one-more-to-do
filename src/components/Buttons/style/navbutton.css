@@ -1,0 +1,47 @@
+
+.nav-button {
+    font-size: 10px;
+    font-weight: bold;
+    color: rgb(103, 111, 127);
+    display: flex;
+    cursor: pointer;
+}
+
+.nav-button-next {
+    justify-content: flex-end;
+    width: 70px;
+}
+
+.nav-button-next > span  {
+    margin-right: 3px;
+}
+
+.nav-button-prev {
+    width: 90px;
+}
+
+.nav-button-prev > span {
+    margin-left: 3px;
+}
+
+.nav-button:disabled {
+    color: rgb(215, 216, 218);
+    background-color: rgba(255, 255, 255, 0.45);
+    cursor: default;
+}
+
+.nav-icon {
+    width: 11px;
+    height: 11px;
+    background-repeat: no-repeat;  
+    background-position: 50% 50%;
+    background-size: 12px 11px;
+}
+
+.next-icon {
+    background-image: url("/images/next-icon.png");
+}
+
+.prev-icon {
+    background-image: url("/images/prev-icon.png");
+}

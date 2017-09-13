@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 function adjustTextAreaHeight(elem) {
-    elem.style.height = '1px';
-    elem.style.height = elem.scrollHeight + 'px';
+    elem.style.height = '1px'
+    elem.style.height = elem.scrollHeight + 'px'
 }
 
-export class TaskTextArea extends Component {
+class TaskTextArea extends Component {
     keyPressHandler = (event) => {
         if (event.key === 'Enter')
             event.target.blur();
     }
     keyUpHandler(event) {
-        adjustTextAreaHeight(event.target);
+        adjustTextAreaHeight(event.target)
     }
     onChange = (event) => {
-        this.props.inputOnChange(event, this.props.id);
+        this.props.inputOnChange(event.target.value, this.props.id)
     }
     render() {
         return (
@@ -26,3 +26,5 @@ export class TaskTextArea extends Component {
         );
     }
 }
+
+export default TaskTextArea

@@ -1,0 +1,18 @@
+.dialog-button {
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    background-color: rgb(241, 240, 240);
+    cursor: pointer;
+}
+
+.dialog-button.button-yes {
+    width: 3em;
+}
+
+.dialog-button.button-no {
+    width: 2.6em;
+}
