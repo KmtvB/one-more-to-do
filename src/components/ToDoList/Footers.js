@@ -1,14 +1,13 @@
 import React from 'react';
 import { LineTwoArea, EmptyLeft } from './TaskLine';
 import { NavButtonNewPage, NavButtonPrev, NavButtonNext } from '../Buttons/NavButton'
-import { DialogButtonNo, DialogButtonYes } from '../Buttons/DialogButton'
+import DialogButton from '../Buttons/DialogButton'
 
 import './style/footer.css';
 
 const Footer = ({ children }) => {
     return <footer className="footer to-do__footer">{children}</footer>
 }
-
 
 export const FooterNavBar = (props) => {
     return (
@@ -32,8 +31,8 @@ export const FooterDialog = ({ yesOnClick, noOnClick }) => {
             <LineTwoArea>
                 {<EmptyLeft />}
                 {<div className="footer__panel">
-                    <DialogButtonNo onClick={noOnClick} />
-                    <DialogButtonYes onClick={yesOnClick} />
+                    <DialogButton no onClick={noOnClick} />
+                    <DialogButton yes onClick={yesOnClick} />
                 </div>}
             </LineTwoArea>
         </Footer>

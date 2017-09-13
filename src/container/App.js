@@ -5,7 +5,6 @@ import { InterfaceStateEnum } from '../constants/Enums';
 
 class AppView extends Component {
   render() {
-    console.log(this.props.interfaceState, InterfaceStateEnum.taskList.base)
     if (this.props.interfaceState === InterfaceStateEnum.taskList.base)
       return <ToDoListBase />
     else if (this.props.interfaceState === InterfaceStateEnum.taskList.delete)
@@ -14,7 +13,7 @@ class AppView extends Component {
 }
 
 const App = connect(
-  (state) => ({interfaceState: state.interfaceState}),
+  (state) => ({ interfaceState: state.interfaceState }),
   null
 )(AppView)
 

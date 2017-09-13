@@ -9,17 +9,16 @@ const Header = ({ children }) => {
     return <header className="header to-do__header">{children}</header>
 }
 
-
 export const HeaderTaskList = (props) => {
     return (
         <Header>
             <LineTwoArea>
                 {<TaskTickBox isDone={props.toggleBoxAllTask} onClick={props.toggleBoxOnClick} />}
                 {<div className="header__panel">
-                    <ControlButton className="add-icon" onClick={props.addButtonOnClick} />
-                    <ControlButton className="delete-icon" onClick={props.deleteButtonOnClick} />
+                    <ControlButton add onClick={props.addButtonOnClick} />
+                    <ControlButton del onClick={props.deleteButtonOnClick} />
                     <input className="header__page-title" value={props.pageTitle} onChange={(e) => props.titleOnChange(e.target.value)} />
-                    <ControlButton className="settings-icon" onClick={props.settingsButtonOnClick} />
+                    <ControlButton settings onClick={props.settingsButtonOnClick} />
                 </div>}
             </LineTwoArea>
         </Header>

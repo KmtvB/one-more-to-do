@@ -1,10 +1,12 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import './style/navbutton.css'
 
 const NavButton = ({ className, children, ...props }) => {
+    const btnClassName = classNames('nav-button', className)
     return (
-        <div className={"nav-button " + className} {...props}>
+        <div className={btnClassName} {...props}>
             {children}
         </div>
     )
@@ -12,7 +14,7 @@ const NavButton = ({ className, children, ...props }) => {
 
 export const NavButtonNext = ({ onClick, ...props }) => {
     return (
-        <NavButton onClick={props.nextOnClick} className="nav-button-next">
+        <NavButton onClick={onClick} className="nav-button-next">
             <span>Next</span>
             <div className="nav-icon next-icon"></div>
         </NavButton>
@@ -29,7 +31,7 @@ export const NavButtonPrev = ({ onClick }) => {
     )
 }
 
-export const NavButtonNewPage = ({ onClick}) => {
+export const NavButtonNewPage = ({ onClick }) => {
     return (
         <NavButton onClick={onClick} className="nav-button-new">
             <span>New page</span>
