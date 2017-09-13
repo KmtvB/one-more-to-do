@@ -12,15 +12,23 @@ class TaskTextArea extends Component {
         if (event.key === 'Enter')
             event.target.blur();
     }
-    keyUpHandler(event) {
-        adjustTextAreaHeight(event.target)
-    }
+
     onChange = (event) => {
         this.props.inputOnChange(event.target.value, this.props.id)
     }
+    
+    componentDidMount = () => {
+        adjustTextAreaHeight(this.textarea)
+    }
+    
+    componentDidUpdate = (prevProps, prevState) => {
+        adjustTextAreaHeight(this.textarea)
+    }
+
     render() {
         return (
             <textarea type="text"
+                ref={elem => { this.textarea = elem }}
                 className="task-input"
                 onChange={this.onChange}
                 onKeyPress={this.keyPressHandler}
