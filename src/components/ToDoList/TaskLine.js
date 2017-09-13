@@ -3,7 +3,8 @@ import React from 'react'
 import TaskTextArea from './TaskTextArea'
 import TaskTickBox from './TaskTickBox'
 
-import './style/line.css'
+import './style/taskline.css'
+import './style/task.css'
 
 export const LineTwoArea = ({ children }) => {
     return (

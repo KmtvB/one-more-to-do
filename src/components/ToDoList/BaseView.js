@@ -6,7 +6,7 @@ import { TaskLineInput } from './TaskLine'
 import { FooterNavBar } from './Footers'
 import { InterfaceStateEnum } from '../../constants/Enums'
 
-import './style/todolist.css';
+import './style/todolistview.css';
 
 class BaseView extends Component {
     toggleBoxAllHandler = () => {
@@ -45,7 +45,7 @@ class BaseView extends Component {
         const allTaskIsDone = this.props.tasks.reduce((prev, curr) => prev && (curr ? curr.status : false), true)
 
         return (
-            <section id="container">
+            <section className="container">
                 <HeaderTaskList
                     pageTitle={this.props.title} titleOnChange={this.titleChangeHandler}
                     toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}

@@ -18,25 +18,6 @@ header {
     color: rgb(139, 143, 151);
 }
 
-.control-icon {
-    display: inline-block;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-}
-
-.add-icon {
-    background-image: url("/images/add.png");
-    margin-right: 3px;
-    margin-left: -3px;
-}
-
-.delete-icon {
-    background-image: url("/images/trash 2.png");
-}
-
 .control-panel {
     padding: 0px 10px 0px 10px;
     display: flex;

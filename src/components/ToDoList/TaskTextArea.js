@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import './style/task.css'
+
 function adjustTextAreaHeight(elem) {
     elem.style.height = '1px'
     elem.style.height = elem.scrollHeight + 'px'
@@ -19,6 +21,7 @@ class TaskTextArea extends Component {
     render() {
         return (
             <textarea type="text"
+                className="task-input"
                 onChange={this.onChange}
                 onKeyPress={this.keyPressHandler}
                 onKeyUp={this.keyUpHandler}

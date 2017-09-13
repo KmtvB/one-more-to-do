@@ -1,0 +1,20 @@
+
+
+.task-text, .task-input {
+    padding: 0 10px 0 10px;
+    line-height: 30px;
+    height: 30px;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.task-input, .task-input:focus {
+    word-wrap: break-word;
+    overflow: hidden;
+    resize: none;
+    width: 100%;
+    border: none;
+    outline: rgb(108, 106, 106);
+    background-color: rgba(0, 0, 0, 0);
+}

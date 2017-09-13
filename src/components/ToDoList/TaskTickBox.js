@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './style/tickbox.css'
+import './style/tasktickbox.css'
 
 const TaskTickBox = ({ id, onClick, isDone }) => {
     return (

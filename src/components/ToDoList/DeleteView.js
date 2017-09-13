@@ -6,6 +6,8 @@ import { FooterDialog } from './Footers';
 import { List } from './TaskList'
 import { TaskLineText } from './TaskLine'
 
+import './style/todolistview.css'
+
 class DeleteView extends Component {
     constructor(props) {
         super(props)
@@ -55,7 +57,7 @@ class DeleteView extends Component {
 
     render() {
         return (
-            <section id="container">
+            <section className="container">
                 <HeaderTitle text={'select to delete'} />
                 {this.renderList()}
                 <FooterDialog
