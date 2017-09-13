@@ -9,9 +9,6 @@ import { InterfaceStateEnum } from '../../constants/Enums'
 import './style/todolistview.css';
 
 class BaseView extends Component {
-    toggleBoxAllHandler = () => {
-        this.props.toggleAllBoxOnPage()
-    }
     textInputChangeHandler = (value, id) => {
         this.props.editTask(id, value)
     }
@@ -42,23 +39,25 @@ class BaseView extends Component {
     }
 
     render() {
-        const allTaskIsDone = this.props.tasks.reduce((prev, curr) => prev && (curr ? curr.status : false), true)
-
+        const { tasks, title, toggleAllBoxOnPage } = this.props
+        const { isFirstPage, prevPage, isLastPage, newPage, nextPage } = this.props
+        
+        const allTaskIsDone = tasks.reduce((prev, curr) => prev && (curr ? curr.status : false), true)
         return (
             <section className="to-do">
                 <HeaderTaskList
-                    pageTitle={this.props.title} titleOnChange={this.titleChangeHandler}
-                    toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={this.toggleBoxAllHandler}
+                    pageTitle={title} titleOnChange={this.titleChangeHandler}
+                    toggleBoxAllTask={allTaskIsDone} toggleBoxOnClick={toggleAllBoxOnPage}
                     addButtonOnClick={this.addButtonHandler}
                     deleteButtonOnClick={this.deleteButtonHandler}
                     settingsButtonOnClick={this.settingsButtonHandler}
                 />
                 {this.renderList()}
                 <FooterNavBar
-                    isPrevActive={!this.props.isFirstPage}
-                    prevOnClick={!this.props.isFirstPage ? this.props.prevPage : null}
-                    isNextAsNewPage={this.props.isLastPage}
-                    nextOnClick={this.props.isLastPage ? this.props.newPage : this.props.nextPage}
+                    isPrevActive={!isFirstPage}
+                    prevOnClick={!isFirstPage ? prevPage : null}
+                    isNextAsNewPage={isLastPage}
+                    nextOnClick={isLastPage ? newPage : nextPage}
                 />
             </section>
         );
